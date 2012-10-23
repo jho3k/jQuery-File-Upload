@@ -28,6 +28,26 @@ $(function () {
         )
     );
 
+    $('#fileupload').fileupload('option', {
+        maxFileSize: 10000000,
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+        process: [
+            {
+                action: 'load',
+                fileTypes: /^image\/(gif|jpeg|png)$/,
+                maxFileSize: 20000000 // 20MB
+            },
+            {
+                action: 'resize',
+                maxWidth: 1440,
+                maxHeight: 900
+            },
+            {
+                action: 'save'
+            }
+        ]
+    });
+        
     if (window.location.hostname === 'blueimp.github.com') {
         // Demo settings:
         $('#fileupload').fileupload('option', {

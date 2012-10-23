@@ -192,6 +192,14 @@
             if (options.process && options.process.length &&
                     this._isXHRUpload(options)) {
                 $.each(data.files, function (index, file) {
+                    
+                    var reader = new FileReader();
+                    reader.onload = function(){
+                        var bF = new BinaryFile(reader.result);
+                        file.exif = EXIF.readFromBinaryFile(bF);
+                    };
+                    reader.readAsBinaryString(file);
+                    
                     that._processingQueue = that._processingQueue.pipe(
                         function () {
                             var dfd = $.Deferred();
